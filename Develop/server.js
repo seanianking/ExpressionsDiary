@@ -11,42 +11,65 @@ const fs = require('fs');
 let app = express();
 let PORT = process.env.PORT || 3000;
 
-//ID must be declared as a variable globally 
-//since it will be used in multiple functions
-//throughout the app
-let id = 1;
-
 //middleware for express to get the job done
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 
 //pulls in notes.html
-app.get('/notes', function(req, res){
+app.get('/notes', function (req, res) {
     res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
 //pulls in index.html
-app.get('/', function(req,res){
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, "public/index.html"));
 })
 
 //function to get all entries
-app.get('/api/notes', function(req, res) {
+app.get('/api/notes', function (req, res) {
     //read and parse data from JSON object array
-    fs.readFile('./db/db.json', 'utf8', function(err, data){
+    fs.readFile('./db/db.json', 'utf8', function (err, data) {
         if (err) throw err;
         res.send(JSON.parse(data));
     })
 });
 
-//function to add a new note
-app.post('/api/notes', function (req, res){
+//function to add a new entry
+app.post('/api/notes', function (req, res) {
     let newEntry = req.body;
+    fs.readFile('./db/db.json', 'utf8', function (err, data) {
+        if (err) throw err;
+        let journal = JSON.parse(data);
+        journal.push(newEntry);
+        let id = 1
+        for (let i = 0; i < journal.length; i++) {
+            journal[i].id = id++;
+        }
+        fs.writeFile('./db/db.json', JSON.stringify(journal), function (err) {
+            if (err) throw err;
+            return res.status(200).send("Journal Entry Recorded")
+        })
+    });
+});
 
+
+//id is used to filer the array of notes,
+//this function will remove notes from the array
+app.delete('/api/notes/:id', function (req, res) {
+    let removeEntry = req.params.id;
+    fs.readFile('./db/db.json', 'utf8', function (err, data) {
+        if (err) throw err;
+        entries = JSON.parse(data);
+        let newEntries = entries.filter(test => test.id !== +removeEntry);
+        console.log(entries, newEntries, removeEntry);
+        fs.writeFile('./db/db.json', JSON.stringify(newEntries), function (err) {
+            if (err) throw err;
+            res.send('./db/db.json');
+        })
+    })
 })
 
 
-
-app.listen(PORT, function(){
+app.listen(PORT, function () {
     console.log("App is active, check out PORT " + PORT);
 })
