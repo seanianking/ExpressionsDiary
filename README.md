@@ -2,6 +2,12 @@
 
 ## Link to the deployed Site
 
+- https://vast-eyrie-77753.herokuapp.com/
+
+## Link to the GitHub repo
+
+- https://github.com/seanianking/ExpressionsDiary
+
 # Content
 
 ## Landing Page
