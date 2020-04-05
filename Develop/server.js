@@ -16,7 +16,7 @@ let PORT = process.env.PORT || 3000;
 //throughout the app
 let id = 1;
 
-//functions for express to get the job done
+//middleware for express to get the job done
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
@@ -25,6 +25,10 @@ app.use(express.static(__dirname + '/public'));
 app.get('/notes', function(req, res){
     res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
+//pulls in index.html
+app.get('/', function(req,res){
+    res.sendFile(path.join(__dirname, "public/index.html"));
+})
 
 //function to get all entries
 app.get('/api/notes', function(req, res) {
@@ -36,7 +40,10 @@ app.get('/api/notes', function(req, res) {
 });
 
 //function to add a new note
+app.post('/api/notes', function (req, res){
+    let newEntry = req.body;
 
+})
 
 
 
