@@ -2,7 +2,7 @@
 
 ## Link to the deployed Site
 
-- https://vast-eyrie-77753.herokuapp.com/
+https://expressions-diary.herokuapp.com/
 
 ## Link to the GitHub repo
 
