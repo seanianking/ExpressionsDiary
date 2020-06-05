@@ -1,5 +1,7 @@
 # ExpressionsDiary
 
+This project utilizes Express and Node.JS in a CRUD application to add, view, edit and remove entries for a diary.
+
 ## Link to the deployed Site
 
 https://expressions-diary.herokuapp.com/
