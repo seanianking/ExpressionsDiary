@@ -14,8 +14,8 @@ https://expressions-diary.herokuapp.com/
 
 ## Landing Page
 
-![Image of main landing page](Develop/public/assets/images/ExpressionsLanding.png)
+![Image of main landing page](/public/assets/images/ExpressionsLanding.png)
 
 ## Notes Page
 
-![Image of notes page](Develop/public/assets/images/ExpressionsNotes.png)
+![Image of notes page](public/assets/images/ExpressionsNotes.png)
